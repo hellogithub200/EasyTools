@@ -6,10 +6,29 @@
 import time
 from easy_log import EasyLog
 
-if __name__ == "__main__":
 
+def example1():
     logger = EasyLog("my_module")
 
     for i in xrange(1, 16):
-        logger.critical("critical message %s" % i)
+        logger.error("critical message %s" % i)
         time.sleep(1)
+
+def example2():
+    """
+        test email
+        将日志打印到控制台和发送到指定邮箱
+    :return:
+    """
+    try:
+        1 / 0
+    except Exception, e:
+        logger = EasyLog("my_module")
+        logger.critical(e)
+
+
+if __name__ == "__main__":
+    example2()
+
+
+

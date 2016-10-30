@@ -34,10 +34,22 @@ handlers:
         backupCount: 20
         encoding: utf8
 
+    # 将日志消息发到邮箱
+    email:
+        class: logging.handlers.SMTPHandler
+        level: CRITICAL
+        mailhost: [localhost, 25]   # 主机名，端口号
+        fromaddr: Program <my_app@domain.com>
+        toaddrs:
+          - lidezheng@conew.com
+          - 616310166@qq.com
+        subject: Warning!  we have a problem.
+
 loggers:
     my_module:
         level: ERROR
-        handlers: [console, handler_rotate_by_time]
+        # handlers: [console, handler_rotate_by_time]
+        handlers: [console, email]
         propagate: no
 
 root:

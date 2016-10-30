@@ -12,7 +12,7 @@ class EasyLog:
     """
         日志类
     """
-    with open('./logging.yaml') as fd:
+    with open('./easy_log.yaml') as fd:
         conf = yaml.load(fd)
     logging.config.dictConfig(conf)
 
