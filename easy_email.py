@@ -12,7 +12,7 @@ import smtplib
 class EasyEmail:
     """
         邮件发送类: 支持普通邮件和html格式的邮件
-        使用Gmail账户发送邮件
+        使用Gmail账户或本机smtp服务发送邮件
     """
     email_from = ""                     # Gmail邮箱账号
     email_from_password = ""            # Gmail邮箱密码

@@ -10,9 +10,10 @@
 
 *注：Yaml安装：pip install pyyaml*
 
-## 2. EasyEmail是对python email模块的简单封装，实现发送邮件的功能。将发件人设置为Gmail的邮箱账户即可，使用起来十分方便。
+## 2. EasyEmail是对python email模块的简单封装，实现发送邮件的功能。
 
-
+1. 支持使用Gmail服务器发送邮件
+2. 支持本机SMTP服务两种方式发送邮件（查看本机服务： netstat -lntp, 查看端口25是否有smtp服务）
 
 
 > **访问我的博客站点：http://www.lidezheng.net**
