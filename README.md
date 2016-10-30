@@ -1,4 +1,5 @@
-# EasyLog
+# EasyTools
+封装的工具集合
 
 EasyLog是对Python logging模块的简单封装，保留了logging模块最基本的功能
 
