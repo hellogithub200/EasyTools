@@ -12,6 +12,7 @@ import smtplib
 class EasyEmail:
     """
         邮件发送类
+        使用Gmail账户发送邮件
     """
     email_from = ""                     # 邮箱账号
     email_from_password = ""            # 邮箱密码
