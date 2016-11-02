@@ -5,7 +5,7 @@
 
 import time
 
-from EasyTools.easy_log.easy_log import EasyLog
+from EasyTools.easytools.easy_log.easy_log import EasyLog
 
 
 def example1():
