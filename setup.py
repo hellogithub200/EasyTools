@@ -63,7 +63,7 @@ URL = "https://github.com/lidezheng/EasyTools"
 你这个包的项目地址，如果有，给一个吧，没有你直接填写在PyPI你这个包的地址也是可以的
 """
 
-VERSION = "1.0.5"
+VERSION = "1.0.7"
 """
 当前包的版本，这个按你自己需要的版本控制方式来
 """
@@ -92,5 +92,5 @@ setup(
     packages=PACKAGES,
     include_package_data=True,
     zip_safe=True,
-    setup_requires=['PyYAML>=3.12']
+    install_requires=['PyYAML>=3.12']
 )
