@@ -1,12 +1,15 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
+#-*- encoding: gbk -*-
 # Created by lidezheng at 2016/10/30 下午12:42
 
-
+import email, email.header
 from email.header import Header
 from email.mime.text import MIMEText
 from email.utils import parseaddr, formataddr, formatdate
 import smtplib
+
+from imapclient import IMAPClient
 
 
 class EasyEmail:
@@ -101,9 +104,73 @@ class EasyEmail:
             return False
 
     send = send_by_localhost
-    
 
-if __name__ == "__main__":
+    @staticmethod
+    def get_email(host=None, port=993, ssl=True, username=None, password=None):
+        """
+            从指定邮箱账号读取未读邮件(默认收件箱INBOX)，并标记为已读
+        :param host: imap主机
+        :param port: imap端口，Gmail为993
+        :param ssl: 是否启用ssl，默认启用
+        :param username: 用户名
+        :param password: 登录密码
+        :return: （迭代器）邮件列表 [{'id': '', 'subject': '', 'from': '', 'content': ''}]
+        """
+        if not host or not port or not ssl or not username or not password:
+            return
+
+        server = IMAPClient(host=host, port=port, use_uid=True, ssl=ssl)
+        server.login(username=username, password=password)
+
+        select_info = server.select_folder("INBOX")
+        # print ("%d messages in INBOX" % select_info['EXISTS'])
+
+        all_message_ids = server.search(["UNSEEN"])
+        print len(all_message_ids)
+
+        start = 0
+        size = 1        # 每次取回邮件的个数，请自由配置
+        while True:
+            message_ids = all_message_ids[start: (start + size)]    # 分批从服务器获取邮件内容
+            start += size
+            if not message_ids:
+                break
+
+            response = server.fetch(message_ids, ['BODY.PEEK[]'])
+
+            for message_id, message in response.iteritems():
+                try:
+                    e = email.message_from_string(message['BODY[]'])
+                    subject = str(email.header.make_header(email.header.decode_header(e.get("SUBJECT"))))
+                    mail_from = str(email.header.make_header(email.header.decode_header(e.get("From"))))
+
+                    maintype = e.get_content_maintype()
+
+                    content = ""
+                    if maintype == 'multipart':
+                        for part in e.get_payload():
+                            if part.get_content_maintype() == 'text':
+                                content = part.get_payload(decode=True).strip()
+                    elif maintype == 'text':
+                        content = e.get_payload(decode=True).strip()
+
+                    # 将内容编码为utf8，可以根据需要更改
+                    # content = content.decode('gbk')
+
+                    server.add_flags(messages=message_id, flags=[b'\\SEEN'])  # 标记已读
+                    info = {
+                        'id': message_id,
+                        'subject': subject,
+                        'from': mail_from,
+                        'content': content
+                    }
+                except Exception, e:
+                    print e
+                yield info
+        return
+
+
+def test_send():
     # 使用示例
     # 运行环境 CentOS 7.2， 需要启动smtp服务
     email_from = "脚本 <Liveme@cmcm.com>"
@@ -111,3 +178,21 @@ if __name__ == "__main__":
     content = "<h1>hello, email.</h1>"
     email_to = ['616310166@qq.com']
     EasyEmail.send(email_from, subject, content, email_to)
+
+def test_get_email():
+    HOST = "imap.gmail.com"
+    PORT = 993
+    USERNAME = "live.me@conew.com"
+    PASSWORD = "kingsoft7777"
+    PASSWORD = "rstycevdeldzvjdt"
+    SSL = True
+    email_info = EasyEmail.get_email(host=HOST, port=PORT, ssl=SSL, username=USERNAME, password=PASSWORD)
+    if email_info:
+        for info in email_info:
+            for key in info:
+                print key
+                print info.get(key)
+                print '-'*20
+
+if __name__ == "__main__":
+    test_get_email()
