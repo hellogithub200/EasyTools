@@ -157,7 +157,7 @@ class EasyEmail:
                     # 将内容编码为utf8，可以根据需要更改
                     # content = content.decode('gbk')
 
-                    server.add_flags(messages=message_id, flags=[b'\\SEEN'])  # 标记已读
+                    # server.add_flags(messages=message_id, flags=[b'\\SEEN'])  # 标记已读
                     info = {
                         'id': message_id,
                         'subject': subject,
