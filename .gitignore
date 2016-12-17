@@ -3,3 +3,4 @@
 *.log
 EasyTools.egg-info
 dist
+.idea
