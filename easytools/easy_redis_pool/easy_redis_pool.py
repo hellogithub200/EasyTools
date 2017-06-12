@@ -17,7 +17,7 @@ class MyRedisPool:
     """
         redis连接池
     """
-    redis_pool = {}
+    _redis_pool = {}
 
     def __init__(self):
         pass

@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-#-*- encoding: gbk -*-
+# -*- encoding: gbk -*-
 # Created by lidezheng at 2016/10/30 下午12:42
 
 import email, email.header
@@ -33,8 +33,8 @@ class EasyEmail:
                 or not content or not email_to:
             return False
 
-        email_from = ""           # Gmail邮箱账号
-        email_from_password = ""  # Gmail邮箱密码
+        email_from = "lidezheng2016@gmail.com"           # Gmail邮箱账号
+        email_from_password = "lidezheng2016"            # Gmail邮箱密码
         gmail_smtp_server = "smtp.gmail.com"
 
         try:
@@ -177,7 +177,7 @@ def test_send():
     subject = "汇报"
     content = "<h1>hello, email.</h1>"
     email_to = ['616310166@qq.com']
-    EasyEmail.send(email_from, subject, content, email_to)
+    EasyEmail.send_by_localhost(email_from, subject, content, email_to)
 
 def test_get_email():
     HOST = "imap.gmail.com"
@@ -195,4 +195,4 @@ def test_get_email():
                 print '-'*20
 
 if __name__ == "__main__":
-    test_get_email()
+    test_send()

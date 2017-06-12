@@ -28,11 +28,15 @@
 1. 支持使用Gmail服务器发送邮件
 2. 支持本机SMTP服务发送邮件（查看本机服务： netstat -lntp, 查看端口25是否有smtp服务）
 
+-
+<br>
+<br>
+
 ## 3. MyRedisPool是实现的redis连接单例对象，MyDBPool是实现的数据库连接单例。
 
-TODO
+TODO<br>
 1. MyRedisPool在内部实现时，已经支持多个redis连接的单例，但是需要通过增加参数实现redis连接池
-2. MyDBPool在内部实现了连接池，局限是用了MySQLdb而没有用torndb，用起来不是很方便；再者不能支持多个数据库连接的分别单例化，这点可参考MyRedisPool的实现
+2. MyDBPool在内部实现了连接池，局限是用了MySQLdb而没有用torndb，用起来不是很方便；再者不能支持多个数据库连接的分别单例化，这点可参考MyRedisPool的实现，后续会不断完善、优化
 
 
 > **访问我的博客站点：http://www.lidezheng.net**
