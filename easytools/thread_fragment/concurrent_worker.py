@@ -37,8 +37,9 @@ class ConcurrentWorker(Thread):
 
     def __init__(self, daemon=False, name=None, arg=None):
         self.arg = arg
-        threading.Thread.__init__(self, name=name)
-        threading.Thread.setDaemon(self, daemon)
+        Thread.__init__(self, name=name)
+        # threading.Thread.setName(self, name=name)
+        Thread.setDaemon(self, daemon)
 
     def run(self):
         while True:
@@ -71,8 +72,11 @@ if __name__ == '__main__':
     """实现多线程任务常用方式"""
     # 1. 函数式多worker
     # start_concurrent_worker()
+
     # 2. 类方式多worker
     start_class_worker()
+
+
 
     # 3. 函数式多consumer/producer
     # 4. 类方式多consumer/producer
